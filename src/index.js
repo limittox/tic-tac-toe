@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import './index.css';
-import './style/main.css';
+import './built_css/font.css';
+import './built_css/tailwind.css';
 import Game from './Game';
 import reportWebVitals from './reportWebVitals';
 

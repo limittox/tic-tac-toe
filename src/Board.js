@@ -55,10 +55,11 @@ function Board() {
   }
 
   return (
-    <div className="flex justify-self-auto">
-      <div className="status">{status}</div>
-      <div className="w-64 h-64 bg-gray-100 grid grid-cols-3 gap-4">
-        <div className="board-row">
+    <div className="grid grid-rows-[max-content_1fr] text-center gap-4 mt-8 ml-8 mr-8 justify-items-center items-center">
+      <div className="h-[40px]">{status}</div>
+      <div className="w-64 h-64 grid grid-cols-3 gap-4">
+        {/* <div className="board-row border-r-4 border-yellow-400"> */}
+        <div className="board-row divide-x divide-yellow-400">
           {renderSquare(0)}
           {renderSquare(1)}
           {renderSquare(2)}
