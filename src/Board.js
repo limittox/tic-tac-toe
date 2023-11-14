@@ -5,6 +5,11 @@ import styles from "./index.css";
 function Board() {
   const [squares, setSquares] = React.useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = React.useState(true);
+  const borderStyle = {
+    borderRight: "border-r-2",
+    borderBottom: "border-b-2",
+    borderTop: "border-t-2"
+  }
 
   const handleClick = (i) => {
     const squaresCopy = [...squares];
@@ -16,8 +21,8 @@ function Board() {
     setXIsNext(!xIsNext);
   };
 
-  const renderSquare = (i) => {
-    return <Square value={squares[i]} onClick={() => handleClick(i)} />;
+  const renderSquare = (i, borderRight, borderBottom, borderTop) => {
+    return <Square value={squares[i]} onClick={() => handleClick(i)} style={{borderRight,borderBottom,borderTop}} />;
   };
 
   const winner = calculateWinner(squares);
@@ -57,22 +62,21 @@ function Board() {
   return (
     <div className="grid grid-rows-[max-content_1fr] text-center gap-4 mt-8 ml-8 mr-8 justify-items-center items-center">
       <div className="h-[40px]">{status}</div>
-      <div className="w-64 h-64 grid grid-cols-3 gap-4">
-        {/* <div className="board-row border-r-4 border-yellow-400"> */}
-        <div className="board-row divide-x divide-yellow-400">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
+      <div className="w-128 h-128 grid grid-cols-3">
+        <div className="board-row border-r-2 border-yellow-400">
+          {renderSquare(0, "", borderStyle.borderBottom, "")}
+          {renderSquare(1, "", borderStyle.borderBottom, "")}
+          {renderSquare(2, "", "", "")}
         </div>
-        <div className="board-row"> 
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
+        <div className="board-row border-r-2 border-yellow-400"> 
+          {renderSquare(3, "", borderStyle.borderBottom, "")}
+          {renderSquare(4, "", borderStyle.borderBottom, "")}
+          {renderSquare(5, "", "", "")}
         </div>
         <div className="board-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
+          {renderSquare(6, "", borderStyle.borderBottom, "")}
+          {renderSquare(7, "", borderStyle.borderBottom, "")}
+          {renderSquare(8, "", "", "")}
         </div>
       </div>
     </div>
