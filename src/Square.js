@@ -1,13 +1,20 @@
 import Cross from "./Cross";
 import Circle from "./Circle";
 
-function Square(props) {
+function Square({ value, onClick, style }) {
+  let symbol = "";
+  if (value === "X") {
+    symbol = <Cross />;
+  } else if (value === "O") {
+    symbol = <Circle />;
+  }
+
   return (
     <div
-      className={`flex justify-center items-center w-20 h-20 border-yellow-400 ${props.style.borderRight} ${props.style.borderBottom} ${props.style.borderTop}`}
-      onClick={props.onClick}
+      className={`flex justify-center items-center w-20 h-20 border-yellow-400 ${style.borderRight} ${style.borderBottom} ${style.borderTop}`}
+      onClick={onClick}
     >
-      <div>{(props.value === "X") ? <Cross /> : <Circle />}</div>
+      <div>{symbol}</div>
     </div>
   );
 }
