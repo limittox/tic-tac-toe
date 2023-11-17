@@ -3,8 +3,8 @@ const Cross = () => {
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="106"
-        height="104"
+        width="50"
+        height="50"
         viewBox="0 0 106 104"
         fill="none"
       >
