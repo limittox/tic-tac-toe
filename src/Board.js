@@ -23,6 +23,11 @@ function Board() {
     setXIsNext(!xIsNext);
   };
 
+  const handleResetClick = () => {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+  }
+
   const renderSquare = (i, borderRight, borderBottom, borderTop) => {
     return <Square value={squares[i]} onClick={() => handleClick(i)} style={{borderRight,borderBottom,borderTop}} />;
   };
@@ -63,7 +68,6 @@ function Board() {
 
   return (
     <div className="grid grid-rows-[max-content_1fr] text-center gap-4 mt-8 ml-8 mr-8 justify-items-center items-center">
-      {/* <div className="h-[40px]">{status}</div> */}
       <TurnIndicator turn={xIsNext ? "X" : "O"} />
       <div className="w-128 h-128 grid grid-cols-3">
         <div className="board-row border-r-2 border-yellow-400">
@@ -82,7 +86,7 @@ function Board() {
           {renderSquare(8, "", "", "")}
         </div>
       </div>
-      {(winner !== null) && <WinnerIndicator winner={winner} />}
+      {(winner !== null) && <WinnerIndicator winner={winner} onClick={() => handleResetClick()} />}
     </div>
   );
 }
