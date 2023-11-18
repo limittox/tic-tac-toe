@@ -1,6 +1,7 @@
 {
   "name": "tic-tac-toe",
   "version": "0.1.0",
+  "homepage": "http://limittox.github.io/tic-tac-toe",
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
@@ -17,11 +18,13 @@
   },
   "scripts": {
     "start": "craco  start",
-    "build": "craco  build",
+    "build": "craco  build && postcss src/style/ --dir src/built_css/",
     "test": "craco  test",
     "eject": "react-scripts eject",
     "build:css": "postcss src/style/ --dir src/built_css/",
-    "watch:css": "postcss src/style/ --dir src/built_css/ --watch"
+    "watch:css": "postcss src/style/ --dir src/built_css/ --watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }

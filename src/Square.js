@@ -1,5 +1,5 @@
-import Cross from "./Cross";
-import Circle from "./Circle";
+import Cross from "./components/Cross";
+import Circle from "./components/Circle";
 
 function Square({ value, onClick, style }) {
   let symbol = "";

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Square from "./Square";
-import styles from "./index.css";
+import Square from "../Square";
 import TurnIndicator from "./TurnIndicator";
 import WinnerIndicator from "./WinnerIndicator";
 
@@ -58,9 +57,19 @@ function Board() {
         squares[a] &&
         squares[a] === squares[b] &&
         squares[a] === squares[c]
-      ) {
-        return squares[a];
+        ) {
+          return squares[a];
+        }
       }
+
+    let squareFillCount = 0;
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i] !== null) squareFillCount++;
+    }
+
+    console.log(squareFillCount);
+    if (squareFillCount === 9) {
+      return "Draw";
     }
 
     return null;
