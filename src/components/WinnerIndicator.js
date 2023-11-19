@@ -11,11 +11,11 @@ const WinnerIndicator = ({onClick, winner}) => {
         >
           <g
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
             stroke="#FAD61D"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             transform="matrix(0 1 1 0 2.5 2.5)"
           >
             <path d="m3.98652376 1.07807068c-2.38377179 1.38514556-3.98652376 3.96636605-3.98652376 6.92192932 0 4.418278 3.581722 8 8 8s8-3.581722 8-8-3.581722-8-8-8" />

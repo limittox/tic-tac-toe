@@ -14,7 +14,7 @@ const Cross = () => {
           x2="103.12"
           y2="101.054"
           stroke="#FAD61D"
-          stroke-width="7"
+          strokeWidth="7"
         />
         <line
           x1="2.49665"
@@ -22,7 +22,7 @@ const Cross = () => {
           x2="98.9494"
           y2="2.55393"
           stroke="#FAD61D"
-          stroke-width="7"
+          strokeWidth="7"
         />
       </svg>
     </>

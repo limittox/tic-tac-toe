@@ -1,16 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Square from "../Square";
 import TurnIndicator from "./TurnIndicator";
 import WinnerIndicator from "./WinnerIndicator";
 
-function Board() {
-  const [squares, setSquares] = React.useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = React.useState(true);
+function Board({ playMode }) {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
   const borderStyle = {
     borderRight: "border-r-2",
     borderBottom: "border-b-2",
-    borderTop: "border-t-2"
-  }
+    borderTop: "border-t-2",
+  };
+
+  // Single Player algorithm
+  const miniMaxAlgo = (squares, isMax) => {
+    const winner = calculateWinner(squares);
+    if (winner === "X") return -10;
+    if (winner === "O") return 10;
+    if (winner === "Draw") return 0;
+
+    if (isMax) {
+      let bestScore = -Infinity;
+      for (let i = 0; i < squares.length; i++) {
+        if (squares[i] === null) {
+          squares[i] = "O";
+          bestScore = Math.max(bestScore, miniMaxAlgo(squares, false));
+          squares[i] = null;
+        }
+      }
+      return bestScore;
+    } else {
+      let bestScore = Infinity;
+      for (let i = 0; i < squares.length; i++) {
+        if (squares[i] === null) {
+          squares[i] = "X";
+          bestScore = Math.min(bestScore, miniMaxAlgo(squares, true));
+          squares[i] = null;
+        }
+      }
+      return bestScore;
+    }
+  };
+
+  const findBestMove = (squares) => {
+    let bestScore = -Infinity;
+    let move;
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i] === null) {
+        squares[i] = "O";
+        let score = miniMaxAlgo(squares, false);
+        squares[i] = null;
+        if (score > bestScore) {
+          bestScore = score;
+          move = i;
+        }
+      }
+    }
+    return move;
+  };
 
   const handleClick = (i) => {
     const squaresCopy = [...squares];
@@ -22,13 +69,32 @@ function Board() {
     setXIsNext(!xIsNext);
   };
 
+  useEffect(() => {
+    // Check if it's computer's turn in single player mode
+    if (playMode === "singlePlayer" && !xIsNext && !calculateWinner(squares)) {
+      const bestMove = findBestMove(squares);
+      if (bestMove !== undefined) {
+        const squaresCopy = [...squares];
+        squaresCopy[bestMove] = "O";
+        setSquares(squaresCopy);
+        setXIsNext(true); // Switch back to player's turn
+      }
+    }
+  }, [squares, xIsNext, playMode]);
+
   const handleResetClick = () => {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
-  }
+  };
 
   const renderSquare = (i, borderRight, borderBottom, borderTop) => {
-    return <Square value={squares[i]} onClick={() => handleClick(i)} style={{borderRight,borderBottom,borderTop}} />;
+    return (
+      <Square
+        value={squares[i]}
+        onClick={() => handleClick(i)}
+        style={{ borderRight, borderBottom, borderTop }}
+      />
+    );
   };
 
   const winner = calculateWinner(squares);
@@ -57,17 +123,16 @@ function Board() {
         squares[a] &&
         squares[a] === squares[b] &&
         squares[a] === squares[c]
-        ) {
-          return squares[a];
-        }
+      ) {
+        return squares[a];
       }
+    }
 
     let squareFillCount = 0;
     for (let i = 0; i < squares.length; i++) {
       if (squares[i] !== null) squareFillCount++;
     }
 
-    console.log(squareFillCount);
     if (squareFillCount === 9) {
       return "Draw";
     }
@@ -84,7 +149,7 @@ function Board() {
           {renderSquare(1, "", borderStyle.borderBottom, "")}
           {renderSquare(2, "", "", "")}
         </div>
-        <div className="board-row border-r-2 border-yellow-400"> 
+        <div className="board-row border-r-2 border-yellow-400">
           {renderSquare(3, "", borderStyle.borderBottom, "")}
           {renderSquare(4, "", borderStyle.borderBottom, "")}
           {renderSquare(5, "", "", "")}
@@ -95,7 +160,9 @@ function Board() {
           {renderSquare(8, "", "", "")}
         </div>
       </div>
-      {(winner !== null) && <WinnerIndicator winner={winner} onClick={() => handleResetClick()} />}
+      {winner !== null && (
+        <WinnerIndicator winner={winner} onClick={() => handleResetClick()} />
+      )}
     </div>
   );
 }
