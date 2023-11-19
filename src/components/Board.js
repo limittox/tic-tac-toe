@@ -3,7 +3,7 @@ import Square from "../Square";
 import TurnIndicator from "./TurnIndicator";
 import WinnerIndicator from "./WinnerIndicator";
 
-function Board({ playMode }) {
+function Board({ playMode, selectPlayMode }) {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const borderStyle = {

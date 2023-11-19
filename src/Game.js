@@ -7,15 +7,22 @@ function Game() {
 
   const handleClick = (selectedPlayMode) => {
     setPlayMode(selectedPlayMode);
-  }
+  };
 
   console.log(playMode);
 
   return (
     <div className="min-h-screen bg-red-500">
-      <p className="text-center text-yellow-400 text-[65px] font-light font-['Inter']">tic-tac-toe</p>
-      {playMode == null && <PlayerSelector onClick={(selectedPlayMode) => handleClick(selectedPlayMode)} />}
-      {playMode !== null && <Board playMode={playMode} />}
+      <p className="text-center text-yellow-400 text-[65px] font-light font-['Inter'] cursor-pointer" onClick={() => handleClick(null)}>
+        tic-tac-toe
+      </p>
+      {playMode === null ? (
+        <PlayerSelector
+          onClick={(selectedPlayMode) => handleClick(selectedPlayMode)}
+        />
+      ) : (
+        <Board playMode={playMode} />
+      )}
     </div>
   );
 }
